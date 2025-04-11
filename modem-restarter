@@ -51,7 +51,7 @@ login_and_restart_modem() {
         "$login_url")
 
     if [[ "${redirect_url##*/}" == "MotoHome.asp" ]]; then
-        log_message "Successfully logged in. Restarting modem..."
+        log_message "⚠️ Network down - Restarting"
         sleep 1
         curl -X POST \
             -d "UserId=&OldPassword=&NewUserId=&Password=&PasswordReEnter=&MotoSecurityAction=1" \
@@ -59,9 +59,9 @@ login_and_restart_modem() {
             -H "Accept: $ACCEPT_HEADERS" \
             -H "Content-Type: $CONTENT_TYPE" \
             "$restart_url" >/dev/null 2>&1
-        log_message "Modem restart command sent."
+        log_message "🔄 Restart initiated"
     else
-        log_message "Login failed. Unable to restart modem."
+        log_message "❌ Restart failed"
     fi
 }
 
